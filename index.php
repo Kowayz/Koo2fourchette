@@ -89,11 +89,11 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
             </aside>
         </section>
 
-        <h1 class="section-title">RECETTES DU JOUR</h1>
+<h1 class="section-title">RECETTES DU JOUR</h1>
 
         <section class="recipes-grid">
             <?php
-            // On récupère les recettes avec les infos de l'auteur (Jointure)
+            // Récupération des 3 dernières recettes avec les infos du membre auteur
             $sql = "SELECT r.*, m.prenom, m.gravatar 
                     FROM recettes r 
                     LEFT JOIN membres m ON r.membre = m.idMembre 
@@ -102,17 +102,31 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
             $stmt = $pdo->query($sql);
 
             while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)): 
-                // Gestion de la couleur CSS
-                $cssClass = htmlspecialchars($recette['couleur'] ?? 'marmelade'); 
+                // Mappage des couleurs BDD vers les variables CSS
+                $couleur_bdd = htmlspecialchars($recette['couleur'] ?? 'fushia');
+                $bg_color_style = '';
+                
+                switch ($couleur_bdd) {
+                    case 'vertClair':
+                        $bg_color_style = 'background-color: var(--couleur-vert-anis); color: var(--couleur-texte);'; // Vert anis pour Marmelade
+                        break;
+                    case 'bleuClair':
+                        $bg_color_style = 'background-color: #5D9CC9; color: white;'; // Bleu clair pour Pommes de terre
+                        break;
+                    case 'fushia':
+                    default:
+                        $bg_color_style = 'background-color: var(--couleur-magenta-clair); color: white;'; // Magenta pour Girolles (comme sur la maquette)
+                        break;
+                }
             ?>
-                <article class="recipe-card <?php echo $cssClass; ?>">
+                <article class="recipe-card">
                     <div class="recipe-image-container">
                         <img src="koo2fourchette/photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
                              alt="<?php echo htmlspecialchars($recette['titre']); ?>" class="recipe-image">
                     </div>
-                    <div class="recipe-text-content">
+                    <div class="recipe-text-content" style="<?php echo $bg_color_style; ?>">
                         <h3><?php echo htmlspecialchars($recette['titre']); ?></h3>
-                        <p><?php echo substr(htmlspecialchars($recette['chapo']), 0, 100) . '...'; ?></p>
+                        <p><?php echo substr(htmlspecialchars($recette['chapo']), 0, 100); ?></p>
                     </div>
                     <div class="recipe-footer">
                         <img src="koo2fourchette/photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
@@ -122,7 +136,7 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
                 </article>
             <?php endwhile; ?>
         </section>
-
+        
         <div class="bottom-black-block"></div>
 
     </main>
