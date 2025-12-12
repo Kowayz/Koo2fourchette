@@ -9,11 +9,12 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $login = $_POST['login'];
         $pass = sha1($_POST['password']); 
+        // Correction: Utilisation de utf8_encode avant l'insertion
         $prenom = utf8_encode($_POST['prenom']);
         $nom = utf8_encode($_POST['nom']);
         
-        // CORRECTION GRAVATAR: Utilisation de 'natha.png' comme valeur par défaut car 'default.png' n'existe pas.
-        $gravatar_defaut = 'photos/gravatars/PPdéfaut.jpg'; 
+        // CORRECTION GRAVATAR : Stocker le nom du fichier PPdéfaut.jpg
+        $gravatar_defaut = 'PPdéfaut.jpg'; 
         
         $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', ?)";
         $stmt = $pdo->prepare($sql);
