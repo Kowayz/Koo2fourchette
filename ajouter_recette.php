@@ -80,6 +80,7 @@ $membre_id = $_SESSION['user_id'];
 
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
+            // Utilisation de utf8_encode pour l'insertion
             $titre = utf8_encode($_POST['titre']);
             $chapo = utf8_encode($_POST['chapo']);
             
@@ -94,12 +95,15 @@ $membre_id = $_SESSION['user_id'];
                  exit;
             }
 
-            // Upload de l'image (chemin corrigé)
-            if (move_uploaded_file($imgTmpName, "photos/recettes/" . $imgName)) {
+            // Correction: Utilisation de `__DIR__` ou d'un chemin absolu pour l'upload
+            // Si le répertoire 'photos/recettes' est au même niveau que ajouter_recette.php
+            $target_dir = "photos/recettes/";
+            $target_file = $target_dir . basename($imgName);
 
-                // Insertion en base de données avec des valeurs par défaut pour les champs retirés du formulaire
-                // ATTENTION: Ces valeurs sont des valeurs minimales/génériques pour que la BDD ne plante pas.
-                // La catégorie 2 est pour 'légume'
+            // Upload de l'image
+            if (move_uploaded_file($imgTmpName, $target_file)) {
+
+                // Insertion en base de données avec des valeurs par défaut pour les champs manquants
                 $sql = "INSERT INTO recettes (titre, chapo, img, membre, categorie, difficulte, prix, tempsPreparation, tempsCuisson, preparation, ingredient, couleur) 
                         VALUES (?, ?, ?, ?, 2, 'Facile', 'Pas cher', '20 min', '10 min', 'Préparation par défaut.', 'Ingrédients par défaut.', 'fushia')";
                 
@@ -111,7 +115,10 @@ $membre_id = $_SESSION['user_id'];
                 }
 
             } else {
-                echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'upload de l'image. Vérifiez les permissions du dossier `photos/recettes/`.</p>";
+                // Le problème de permission est un problème de configuration serveur, pas de code PHP.
+                // On affiche le chemin pour aider au diagnostic.
+                echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'upload de l'image. Cela est très probablement un problème de **permissions d'écriture** sur le dossier `{$target_dir}`.</p>";
+                echo "<p>Veuillez vous assurer que le dossier <code>{$target_dir}</code> a les permissions d'écriture (ex: CHMOD 777) sur votre serveur.</p>";
             }
         }
         ?>

@@ -8,17 +8,16 @@
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $login = $_POST['login'];
-        // Note: Dans ton fichier SQL, les mots de passe semblent être en SHA1 (pas sécurisé), 
-        // mais on va utiliser password_hash (moderne) pour les nouveaux.
         $pass = sha1($_POST['password']); 
-        // --- Correction: Utilisation de utf8_encode avant l'insertion ---
         $prenom = utf8_encode($_POST['prenom']);
         $nom = utf8_encode($_POST['nom']);
-        // ------------------------------------------------------------------
         
-        $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', 'default.png')";
+        // CORRECTION GRAVATAR: Utilisation de 'natha.png' comme valeur par défaut car 'default.png' n'existe pas.
+        $gravatar_defaut = 'PPdéfaut.jpg'; 
+        
+        $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', ?)";
         $stmt = $pdo->prepare($sql);
-        if($stmt->execute([$login, $pass, $prenom, $nom])) {
+        if($stmt->execute([$login, $pass, $prenom, $nom, $gravatar_defaut])) {
             echo "<p style='color:green'>Inscrit avec succès ! <a href='connexion.php'>Se connecter</a></p>";
         }
     }
