@@ -13,7 +13,7 @@
         $nom = utf8_encode($_POST['nom']);
         
         // CORRECTION GRAVATAR: Utilisation de 'natha.png' comme valeur par défaut car 'default.png' n'existe pas.
-        $gravatar_defaut = 'PPdéfaut.jpg'; 
+        $gravatar_defaut = 'photos/gravatars/PPdéfaut.jpg'; 
         
         $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', ?)";
         $stmt = $pdo->prepare($sql);
