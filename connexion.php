@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="header-content">
         <div class="logo-section">
             <a href="index.php">
-                <img src="koo2fourchette/images/koo_2_fourchette.png" alt="Logo" class="site-logo">
+                <img src="images/koo_2_fourchette.png" alt="Logo" class="site-logo">
             </a>
         </div>
     </div>

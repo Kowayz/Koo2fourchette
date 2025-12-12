@@ -17,17 +17,17 @@ require_once 'config.php';
         <div class="header-content">
             
             <div class="logo-section">
-                <img src="koo2fourchette/images/koo_2_fourchette.png" alt="Logo Kooz2Fourchette" class="site-logo">
+                <img src="images/koo_2_fourchette.png" alt="Logo Kooz2Fourchette" class="site-logo">
                 <p class="tagline">miam miam, gloup gloup, laps laps</p>
             </div>
 
             <div class="tools-section">
                 
                 <div class="social-icons">
-                    <a href="#" class="icon-fb"><img src="koo2fourchette/images/facebook.png" alt="Facebook"></a>
-                    <a href="#" class="icon-tw"><img src="koo2fourchette/images/twitter.png" alt="Twitter"></a>
-                    <a href="#" class="icon-gplus"><img src="koo2fourchette/images/google.png" alt="Google"></a>
-                    <a href="#" class="icon-yt"><img src="koo2fourchette/images/youtube.png" alt="Youtube"></a>
+                    <a href="#" class="icon-fb"><img src="images/facebook.png" alt="Facebook"></a>
+                    <a href="#" class="icon-tw"><img src="images/twitter.png" alt="Twitter"></a>
+                    <a href="#" class="icon-gplus"><img src="images/google.png" alt="Google"></a>
+                    <a href="#" class="icon-yt"><img src="images/youtube.png" alt="Youtube"></a>
                 </div>
 
                 <div class="search-auth-row">
@@ -75,7 +75,7 @@ require_once 'config.php';
 
         <section class="top-section">
             <div class="featured-image-container">
-                <img src="koo2fourchette/photos/recettes/creme-petits-poids.jpg" alt="Recette principale" class="featured-image">
+                <img src="photos/recettes/creme-petits-poids.jpg" alt="Recette principale" class="featured-image">
             </div>
             <aside class="sidebar">
                 <div class="ad-block block-magenta">
@@ -125,7 +125,7 @@ require_once 'config.php';
             ?>
                 <article class="recipe-card">
                     <div class="recipe-image-container">
-                        <img src="koo2fourchette/photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
+                        <img src="photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
                              alt="<?php echo htmlspecialchars($recette['titre']); ?>" class="recipe-image">
                     </div>
                     <div class="recipe-text-content" style="<?php echo $bg_color_style; ?> color: <?php echo $text_color; ?>;">
@@ -133,7 +133,7 @@ require_once 'config.php';
                         <p><?php echo mb_substr(htmlspecialchars($recette['chapo']), 0, 100, 'UTF-8') . '...'; ?></p>
                     </div>
                     <div class="recipe-footer">
-                        <img src="koo2fourchette/photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
+                        <img src="photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
                              alt="Avatar" class="avatar-img">
                         <span class="author-text">proposé par <strong><?php echo htmlspecialchars($recette['prenom']); ?></strong></span>
                     </div>

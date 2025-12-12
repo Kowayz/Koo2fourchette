@@ -21,10 +21,10 @@
         $chapo = $_POST['chapo'];
         $imgName = $_FILES['image']['name'];
         
-        // Upload de l'image
-        move_uploaded_file($_FILES['image']['tmp_name'], "koo2fourchette/photos/recettes/" . $imgName);
+        // Upload de l'image - CORRECTION DU CHEMIN
+        move_uploaded_file($_FILES['image']['tmp_name'], "photos/recettes/" . $imgName);
 
-        $sql = "INSERT INTO recettes (titre, chapo, img, membre, categorie, difficulte, prix, tempsPreparation, tempsCuisson, preparation, ingredient, couleur) 
+        $sql = "INSERT INTO recettes (titre, chapo, img, membre, categorie, difficulte, prix, tempsPreparation, tempsCuisson, preparation, ingredient, couleur)
                 VALUES (?, ?, ?, 1, 1, 'Facile', 'Moyen', '30 min', '15 min', 'A faire...', 'Liste...', 'fushia')";
         
         $stmt = $pdo->prepare($sql);
