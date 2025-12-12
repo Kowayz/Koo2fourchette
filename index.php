@@ -107,11 +107,10 @@ require_once 'config.php';
                 $bg_color_style = '';
                 $text_color = 'white';
                 
-                // --- CORRECTION DES ACCENTS DÉBUT ---
+                // Correction des accents
                 $titre_corrige = utf8_decode($recette['titre']);
                 $chapo_corrige = utf8_decode($recette['chapo']);
                 $prenom_corrige = utf8_decode($recette['prenom']);
-                // --- CORRECTION DES ACCENTS FIN ---
                 
                 switch ($couleur_bdd) {
                     case 'vertClair':

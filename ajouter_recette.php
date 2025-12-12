@@ -3,92 +3,119 @@
 session_start();
 require 'config.php';
 
-// Vérification de la connexion de l'utilisateur (sécurité)
+// Redirection si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user_id'])) {
     header("Location: connexion.php");
     exit();
 }
-
-// Récupération de l'ID du membre connecté
 $membre_id = $_SESSION['user_id']; 
 
 ?>
 <!DOCTYPE html>
 <html>
-<head><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Déposer une recette</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques pour centrer et espacer le formulaire */
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-container input[type="text"],
+        .form-container textarea,
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* S'assure que le padding n'augmente pas la taille totale */
+        }
+        .form-container textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--couleur-texte);
+        }
+        .btn-deposer {
+            /* Utilise le style existant du fichier style.css */
+            display: inline-block !important; 
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
 <body>
 <div class="content-wrapper">
-    <h2>Déposer une recette</h2>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="titre" placeholder="Titre de la recette" required><br><br>
-        <textarea name="chapo" placeholder="Description courte (Chapo)" required></textarea><br><br>
-        <textarea name="preparation" placeholder="Étapes de préparation" required></textarea><br><br>
-        <textarea name="ingredients" placeholder="Liste des ingrédients" required></textarea><br><br>
+    <div class="form-container">
+        <h2 class="section-title" style="text-align:center; margin-bottom: 30px;">Déposer une recette</h2>
         
-        <label>Photo (nom du fichier : `nom-image.jpg`) :</label>
-        <input type="file" name="image" required><br><br>
-        
-        <label>Temps Préparation :</label><input type="text" name="temps_prep" value="15 min" required><br><br>
-        <label>Temps Cuisson :</label><input type="text" name="temps_cuisson" value="30 min" required><br><br>
-        <label>Difficulté :</label>
-        <select name="difficulte" required>
-            <option value="Facile">Facile</option>
-            <option value="Moyen">Moyen</option>
-            <option value="Difficile">Difficile</option>
-        </select><br><br>
-        <label>Prix :</label>
-        <select name="prix" required>
-            <option value="Pas cher">Pas cher</option>
-            <option value="Abordable">Abordable</option>
-            <option value="Cher">Cher</option>
-        </select><br><br>
-        <label>Catégorie (1:viande, 2:légume, 3:poisson, 4:fruit) :</label><input type="number" name="categorie" value="2" required><br><br>
-        <label>Couleur d'affichage (fushia, vertClair, bleuClair) :</label><input type="text" name="couleur" value="fushia" required><br><br>
-        
-        <button type="submit" class="btn-deposer">Envoyer la recette</button>
-    </form>
-
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
-        // --- Correction: Utilisation de utf8_encode avant l'insertion ---
-        $titre = utf8_encode($_POST['titre']);
-        $chapo = utf8_encode($_POST['chapo']);
-        $preparation = utf8_encode($_POST['preparation']);
-        $ingredients = utf8_encode($_POST['ingredients']);
-        
-        // Champs secondaires
-        $temps_prep = htmlspecialchars($_POST['temps_prep']);
-        $temps_cuisson = htmlspecialchars($_POST['temps_cuisson']);
-        $difficulte = htmlspecialchars($_POST['difficulte']);
-        $prix = htmlspecialchars($_POST['prix']);
-        $categorie = (int)$_POST['categorie'];
-        $couleur = htmlspecialchars($_POST['couleur']);
-        // ------------------------------------------------------------------
-        
-        $imgName = $_FILES['image']['name'];
-        
-        // Upload de l'image (chemin corrigé lors de la réponse précédente)
-        if (move_uploaded_file($_FILES['image']['tmp_name'], "photos/recettes/" . $imgName)) {
-
-            // Requête INSERT corrigée pour utiliser tous les champs et l'ID de session
-            $sql = "INSERT INTO recettes (titre, chapo, img, membre, categorie, difficulte, prix, tempsPreparation, tempsCuisson, preparation, ingredient, couleur) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        <form method="POST" enctype="multipart/form-data">
             
-            $stmt = $pdo->prepare($sql);
-            if ($stmt->execute([
-                $titre, $chapo, $imgName, $membre_id, $categorie, $difficulte, $prix, 
-                $temps_prep, $temps_cuisson, $preparation, $ingredients, $couleur
-            ])) {
-                echo "<p style='color:green; font-weight:bold;'>Recette ajoutée avec succès ! <a href='index.php'>Retour à l'accueil</a></p>";
-            } else {
-                 echo "<p style='color:red; font-weight:bold;'>Erreur lors de l'enregistrement en base de données.</p>";
+            <label for="titre">Titre de la recette :</label>
+            <input type="text" id="titre" name="titre" placeholder="Ex: Gâteau au chocolat" required>
+            
+            <label for="chapo">Description courte (Chapo) :</label>
+            <textarea id="chapo" name="chapo" placeholder="Décrivez votre recette en quelques lignes..." required></textarea>
+            
+            <label for="image">Photo (PNG ou JPG) :</label>
+            <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" required>
+            
+            <button type="submit" class="btn-deposer">Envoyer la recette</button>
+        </form>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
+            $titre = utf8_encode($_POST['titre']);
+            $chapo = utf8_encode($_POST['chapo']);
+            
+            $imgName = $_FILES['image']['name'];
+            $imgTmpName = $_FILES['image']['tmp_name'];
+            $imgType = $_FILES['image']['type'];
+
+            // Vérification simple du type de fichier (JPG ou PNG)
+            $allowed_types = ['image/jpeg', 'image/png'];
+            if (!in_array($imgType, $allowed_types)) {
+                 echo "<p style='color:red; font-weight:bold;'>Erreur : Seuls les formats JPG et PNG sont autorisés.</p>";
+                 exit;
             }
 
-        } else {
-            echo "<p style='color:red; font-weight:bold;'>Erreur lors de l'upload de l'image.</p>";
+            // Upload de l'image (chemin corrigé)
+            if (move_uploaded_file($imgTmpName, "photos/recettes/" . $imgName)) {
+
+                // Insertion en base de données avec des valeurs par défaut pour les champs retirés du formulaire
+                // ATTENTION: Ces valeurs sont des valeurs minimales/génériques pour que la BDD ne plante pas.
+                // La catégorie 2 est pour 'légume'
+                $sql = "INSERT INTO recettes (titre, chapo, img, membre, categorie, difficulte, prix, tempsPreparation, tempsCuisson, preparation, ingredient, couleur) 
+                        VALUES (?, ?, ?, ?, 2, 'Facile', 'Pas cher', '20 min', '10 min', 'Préparation par défaut.', 'Ingrédients par défaut.', 'fushia')";
+                
+                $stmt = $pdo->prepare($sql);
+                if ($stmt->execute([$titre, $chapo, $imgName, $membre_id])) {
+                    echo "<p style='color:green; font-weight:bold; margin-top: 15px;'>Recette ajoutée avec succès ! <a href='index.php'>Retour à l'accueil</a></p>";
+                } else {
+                     echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'enregistrement en base de données.</p>";
+                }
+
+            } else {
+                echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'upload de l'image. Vérifiez les permissions du dossier `photos/recettes/`.</p>";
+            }
         }
-    }
-    ?>
+        ?>
+    </div>
 </div>
 </body>
 </html>
