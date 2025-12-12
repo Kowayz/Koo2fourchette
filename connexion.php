@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // C'est gagné ! On enregistre les infos dans la session
         $_SESSION['user_id'] = $user['idMembre'];
         $_SESSION['pseudo'] = $user['login'];
-        $_SESSION['prenom'] = $user['prenom'];
+        // Correction de l'encodage pour le prénom
+        $_SESSION['prenom'] = utf8_decode($user['prenom']); 
         
         // Redirection vers l'accueil
         header("Location: index.php");
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h2 class="section-title" style="text-align:center;">Connexion</h2>
     
     <?php if($message): ?>
-        <p style="color:red; text-align:center; font-weight:bold;"><?php echo $message; ?></p>
+        <p style="color:red; text-align:center; font-weight:bold;"><?php echo utf8_decode($message); ?></p>
     <?php endif; ?>
 
     <form method="POST" style="background:#f4f4f4; padding:20px; border:1px solid #ddd;">

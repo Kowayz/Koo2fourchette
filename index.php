@@ -107,6 +107,12 @@ require_once 'config.php';
                 $bg_color_style = '';
                 $text_color = 'white';
                 
+                // --- CORRECTION DES ACCENTS DÉBUT ---
+                $titre_corrige = utf8_decode($recette['titre']);
+                $chapo_corrige = utf8_decode($recette['chapo']);
+                $prenom_corrige = utf8_decode($recette['prenom']);
+                // --- CORRECTION DES ACCENTS FIN ---
+                
                 switch ($couleur_bdd) {
                     case 'vertClair':
                         $bg_color_style = 'background-color: var(--couleur-vert-anis);'; // Vert anis (Marmelade)
@@ -126,16 +132,16 @@ require_once 'config.php';
                 <article class="recipe-card">
                     <div class="recipe-image-container">
                         <img src="photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
-                             alt="<?php echo htmlspecialchars($recette['titre']); ?>" class="recipe-image">
+                             alt="<?php echo htmlspecialchars($titre_corrige); ?>" class="recipe-image">
                     </div>
                     <div class="recipe-text-content" style="<?php echo $bg_color_style; ?> color: <?php echo $text_color; ?>;">
-                        <h3><?php echo htmlspecialchars($recette['titre']); ?></h3>
-                        <p><?php echo mb_substr(htmlspecialchars($recette['chapo']), 0, 100, 'UTF-8') . '...'; ?></p>
+                        <h3><?php echo htmlspecialchars($titre_corrige); ?></h3>
+                        <p><?php echo mb_substr(htmlspecialchars($chapo_corrige), 0, 100, 'UTF-8') . '...'; ?></p>
                     </div>
                     <div class="recipe-footer">
                         <img src="photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
                              alt="Avatar" class="avatar-img">
-                        <span class="author-text">proposé par <strong><?php echo htmlspecialchars($recette['prenom']); ?></strong></span>
+                        <span class="author-text">proposé par <strong><?php echo htmlspecialchars($prenom_corrige); ?></strong></span>
                     </div>
                 </article>
             <?php endwhile; ?>
