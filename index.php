@@ -102,23 +102,23 @@ require_once 'config.php';
             $stmt = $pdo->query($sql);
 
             while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)): 
-                // Mappage des couleurs BDD vers les variables CSS pour respecter la maquette
+                // Mappage des couleurs BDD vers les styles CSS
                 $couleur_bdd = htmlspecialchars($recette['couleur'] ?? 'fushia');
                 $bg_color_style = '';
                 $text_color = 'white';
                 
                 switch ($couleur_bdd) {
                     case 'vertClair':
-                        $bg_color_style = 'background-color: var(--couleur-vert-anis);'; // Vert anis
+                        $bg_color_style = 'background-color: var(--couleur-vert-anis);'; // Vert anis (Marmelade)
                         $text_color = 'var(--couleur-texte)'; // Texte noir
                         break;
                     case 'bleuClair':
-                        $bg_color_style = 'background-color: #5D9CC9;'; // Bleu clair
+                        $bg_color_style = 'background-color: #5D9CC9;'; // Bleu clair (Pommes de terre)
                         $text_color = 'white';
                         break;
                     case 'fushia':
                     default:
-                        $bg_color_style = 'background-color: var(--couleur-magenta-clair);'; // Magenta
+                        $bg_color_style = 'background-color: var(--couleur-magenta-clair);'; // Magenta (Girolles)
                         $text_color = 'white';
                         break;
                 }
@@ -144,9 +144,6 @@ require_once 'config.php';
         <div class="bottom-black-block"></div>
 
     </main>
-
-</body>
-</html>
 
 </body>
 </html>
