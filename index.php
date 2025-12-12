@@ -1,6 +1,6 @@
 <?php
-session_start(); // OBLIGATOIRE : Doit être la toute première ligne
-require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
+session_start(); 
+require_once 'config.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -89,7 +89,7 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
             </aside>
         </section>
 
-<h1 class="section-title">RECETTES DU JOUR</h1>
+        <h1 class="section-title">RECETTES DU JOUR</h1>
 
         <section class="recipes-grid">
             <?php
@@ -102,20 +102,24 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
             $stmt = $pdo->query($sql);
 
             while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)): 
-                // Mappage des couleurs BDD vers les variables CSS
+                // Mappage des couleurs BDD vers les variables CSS pour respecter la maquette
                 $couleur_bdd = htmlspecialchars($recette['couleur'] ?? 'fushia');
                 $bg_color_style = '';
+                $text_color = 'white';
                 
                 switch ($couleur_bdd) {
                     case 'vertClair':
-                        $bg_color_style = 'background-color: var(--couleur-vert-anis); color: var(--couleur-texte);'; // Vert anis pour Marmelade
+                        $bg_color_style = 'background-color: var(--couleur-vert-anis);'; // Vert anis
+                        $text_color = 'var(--couleur-texte)'; // Texte noir
                         break;
                     case 'bleuClair':
-                        $bg_color_style = 'background-color: #5D9CC9; color: white;'; // Bleu clair pour Pommes de terre
+                        $bg_color_style = 'background-color: #5D9CC9;'; // Bleu clair
+                        $text_color = 'white';
                         break;
                     case 'fushia':
                     default:
-                        $bg_color_style = 'background-color: var(--couleur-magenta-clair); color: white;'; // Magenta pour Girolles (comme sur la maquette)
+                        $bg_color_style = 'background-color: var(--couleur-magenta-clair);'; // Magenta
+                        $text_color = 'white';
                         break;
                 }
             ?>
@@ -124,9 +128,9 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
                         <img src="koo2fourchette/photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
                              alt="<?php echo htmlspecialchars($recette['titre']); ?>" class="recipe-image">
                     </div>
-                    <div class="recipe-text-content" style="<?php echo $bg_color_style; ?>">
+                    <div class="recipe-text-content" style="<?php echo $bg_color_style; ?> color: <?php echo $text_color; ?>;">
                         <h3><?php echo htmlspecialchars($recette['titre']); ?></h3>
-                        <p><?php echo substr(htmlspecialchars($recette['chapo']), 0, 100); ?></p>
+                        <p><?php echo mb_substr(htmlspecialchars($recette['chapo']), 0, 100, 'UTF-8') . '...'; ?></p>
                     </div>
                     <div class="recipe-footer">
                         <img src="koo2fourchette/photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
@@ -140,6 +144,9 @@ require_once 'config.php'; // On charge la BDD une seule fois pour toute la page
         <div class="bottom-black-block"></div>
 
     </main>
+
+</body>
+</html>
 
 </body>
 </html>
