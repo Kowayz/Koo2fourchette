@@ -1,18 +1,15 @@
 <?php 
-// inscription.php
+
 require 'config.php'; 
 
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Récupération et encodage des données
+
     $login = htmlspecialchars($_POST['login']);
     $pass = sha1($_POST['password']); 
     $prenom = utf8_encode(htmlspecialchars($_POST['prenom']));
     $nom = utf8_encode(htmlspecialchars($_POST['nom']));
-    
-    // Gravatar par défaut (doit être un nom de fichier existant dans photos/gravatars/)
-    // Utilisation de 'PPdéfaut.jpg' comme demandé, le caractère 'é' est géré par l'encodage.
     $gravatar_defaut = 'PPdéfaut.jpg'; 
     
     $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', ?)";
