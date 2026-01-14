@@ -18,14 +18,13 @@ $membre_id = $_SESSION['user_id'];
     <title>Déposer une recette</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Styles spécifiques pour centrer et espacer le formulaire */
         .form-container {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 30px;
-            background: #f9f9f9;
+            background: #f4f4f4;
             border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .form-container input[type="text"],
         .form-container textarea,
@@ -34,7 +33,7 @@ $membre_id = $_SESSION['user_id'];
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
-            box-sizing: border-box; /* S'assure que le padding n'augmente pas la taille totale */
+            box-sizing: border-box;
         }
         .form-container textarea {
             min-height: 120px;
@@ -48,7 +47,7 @@ $membre_id = $_SESSION['user_id'];
         }
         .btn-deposer {
             /* Utilise le style existant du fichier style.css */
-            display: inline-block !important; 
+            display: block !important; 
             width: 100%;
             height: 40px;
             line-height: 40px;
@@ -60,6 +59,17 @@ $membre_id = $_SESSION['user_id'];
     </style>
 </head>
 <body>
+
+<header class="header-container">
+    <div class="header-content">
+        <div class="logo-section">
+            <a href="index.php">
+                <img src="images/koo_2_fourchette.png" alt="Logo" class="site-logo">
+            </a>
+        </div>
+    </div>
+</header>
+
 <div class="content-wrapper">
     <div class="form-container">
         <h2 class="section-title" style="text-align:center; margin-bottom: 30px;">Déposer une recette</h2>
@@ -81,26 +91,24 @@ $membre_id = $_SESSION['user_id'];
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
             // Utilisation de utf8_encode pour l'insertion
-            $titre = utf8_encode($_POST['titre']);
-            $chapo = utf8_encode($_POST['chapo']);
+            $titre = utf8_encode(htmlspecialchars($_POST['titre']));
+            $chapo = utf8_encode(htmlspecialchars($_POST['chapo']));
             
             $imgName = $_FILES['image']['name'];
             $imgTmpName = $_FILES['image']['tmp_name'];
             $imgType = $_FILES['image']['type'];
 
-            // Vérification simple du type de fichier (JPG ou PNG)
+            // Vérification du type de fichier (JPG ou PNG)
             $allowed_types = ['image/jpeg', 'image/png'];
             if (!in_array($imgType, $allowed_types)) {
-                 echo "<p style='color:red; font-weight:bold;'>Erreur : Seuls les formats JPG et PNG sont autorisés.</p>";
+                 echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur : Seuls les formats JPG et PNG sont autorisés.</p>";
                  exit;
             }
 
-            // Correction: Utilisation de `__DIR__` ou d'un chemin absolu pour l'upload
-            // Si le répertoire 'photos/recettes' est au même niveau que ajouter_recette.php
             $target_dir = "photos/recettes/";
             $target_file = $target_dir . basename($imgName);
 
-            // Upload de l'image
+            // Tenter l'upload
             if (move_uploaded_file($imgTmpName, $target_file)) {
 
                 // Insertion en base de données avec des valeurs par défaut pour les champs manquants
@@ -115,10 +123,8 @@ $membre_id = $_SESSION['user_id'];
                 }
 
             } else {
-                // Le problème de permission est un problème de configuration serveur, pas de code PHP.
-                // On affiche le chemin pour aider au diagnostic.
-                echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'upload de l'image. Cela est très probablement un problème de **permissions d'écriture** sur le dossier `{$target_dir}`.</p>";
-                echo "<p>Veuillez vous assurer que le dossier <code>{$target_dir}</code> a les permissions d'écriture (ex: CHMOD 777) sur votre serveur.</p>";
+                // Avertissement de permission (pour le serveur en ligne)
+                echo "<p style='color:red; font-weight:bold; margin-top: 15px;'>Erreur lors de l'upload de l'image. Vérifiez les permissions d'écriture (CHMOD 777) sur le dossier <code>{$target_dir}</code>.</p>";
             }
         }
         ?>
