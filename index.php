@@ -15,14 +15,12 @@ require_once 'config.php';
 
     <header class="header-container">
         <div class="header-content">
-            
             <div class="logo-section">
                 <img src="images/koo_2_fourchette.png" alt="Logo Kooz2Fourchette" class="site-logo">
                 <p class="tagline">miam miam, gloup gloup, laps laps</p>
             </div>
 
             <div class="tools-section">
-                
                 <div class="social-icons">
                     <a href="#" class="icon-fb"><img src="images/facebook.png" alt="Facebook"></a>
                     <a href="#" class="icon-tw"><img src="images/twitter.png" alt="Twitter"></a>
@@ -32,15 +30,14 @@ require_once 'config.php';
 
                 <div class="search-auth-row">
                     <div class="search-bar">
-                        <input type="text" placeholder="rechercher une recette">
+                        <input type="text" placeholder="Rechercher une recette">
                         <button class="btn-ok">OK</button>
                     </div>
-                    
                     <div class="auth-buttons">
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <span style="font-weight:bold; margin-right:10px;">Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</span>
-                            <a href="deconnexion.php" style="text-decoration:none;">
-                                <button class="creer-compte" style="background-color: #8E004B;">Déconnexion</button>
+                            <span class="welcome-user">Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</span>
+                            <a href="deconnexion.php" class="btn-logout">
+                                <button class="creer-compte">Déconnexion</button>
                             </a>
                         <?php else: ?>
                             <a href="connexion.php"><button class="se-connecter">Se connecter</button></a>
@@ -51,9 +48,9 @@ require_once 'config.php';
 
                 <div class="deposit-row">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="ajouter_recette.php" class="btn-deposer">déposer une recette</a>
+                        <a href="ajouter_recette.php" class="btn-deposer">Déposer une recette</a>
                     <?php else: ?>
-                        <a href="connexion.php" class="btn-deposer" onclick="return confirm('Vous devez être connecté pour déposer une recette.');">déposer une recette</a>
+                        <a href="connexion.php" class="btn-deposer" onclick="return confirm('Vous devez être connecté pour déposer une recette.');">Déposer une recette</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -102,45 +99,36 @@ require_once 'config.php';
             $stmt = $pdo->query($sql);
 
             while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)): 
-                // Mappage des couleurs BDD vers les styles CSS
-                $couleur_bdd = htmlspecialchars($recette['couleur'] ?? 'fushia');
-                $bg_color_style = '';
-                $text_color = 'white';
+                $couleur = htmlspecialchars($recette['couleur'] ?? 'fushia');
                 
                 // Correction des accents
-                $titre_corrige = utf8_decode($recette['titre']);
-                $chapo_corrige = utf8_decode($recette['chapo']);
-                $prenom_corrige = utf8_decode($recette['prenom']);
+                $titre = utf8_decode($recette['titre']);
+                $chapo = utf8_decode($recette['chapo']);
+                $prenom = utf8_decode($recette['prenom']);
+                $img = htmlspecialchars($recette['img']);
+                $gravatar = htmlspecialchars($recette['gravatar']);
                 
-                switch ($couleur_bdd) {
-                    case 'vertClair':
-                        $bg_color_style = 'background-color: var(--couleur-vert-anis);'; // Vert anis (Marmelade)
-                        $text_color = 'var(--couleur-texte)'; // Texte noir
-                        break;
-                    case 'bleuClair':
-                        $bg_color_style = 'background-color: #5D9CC9;'; // Bleu clair (Pommes de terre)
-                        $text_color = 'white';
-                        break;
-                    case 'fushia':
-                    default:
-                        $bg_color_style = 'background-color: var(--couleur-magenta-clair);'; // Magenta (Girolles)
-                        $text_color = 'white';
-                        break;
-                }
+                // Mappage des couleurs BDD vers les styles CSS
+                $couleur_map = [
+                    'vertClair' => ['bg' => 'var(--couleur-vert-anis)', 'text' => 'var(--couleur-texte)'],
+                    'bleuClair' => ['bg' => '#5D9CC9', 'text' => 'white'],
+                    'fushia' => ['bg' => 'var(--couleur-magenta-clair)', 'text' => 'white']
+                ];
+                
+                $colors = $couleur_map[$couleur] ?? $couleur_map['fushia'];
             ?>
                 <article class="recipe-card">
                     <div class="recipe-image-container">
-                        <img src="photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>" 
-                             alt="<?php echo htmlspecialchars($titre_corrige); ?>" class="recipe-image">
+                        <img src="photos/recettes/<?php echo $img; ?>" 
+                             alt="<?php echo htmlspecialchars($titre); ?>" class="recipe-image">
                     </div>
-                    <div class="recipe-text-content" style="<?php echo $bg_color_style; ?> color: <?php echo $text_color; ?>;">
-                        <h3><?php echo htmlspecialchars($titre_corrige); ?></h3>
-                        <p><?php echo mb_substr(htmlspecialchars($chapo_corrige), 0, 100, 'UTF-8') . '...'; ?></p>
+                    <div class="recipe-text-content" style="background-color: <?php echo $colors['bg']; ?>; color: <?php echo $colors['text']; ?>;">
+                        <h3><?php echo htmlspecialchars($titre); ?></h3>
+                        <p><?php echo mb_substr(htmlspecialchars($chapo), 0, 100, 'UTF-8') . '...'; ?></p>
                     </div>
                     <div class="recipe-footer">
-                        <img src="photos/gravatars/<?php echo htmlspecialchars($recette['gravatar']); ?>" 
-                             alt="Avatar" class="avatar-img">
-                        <span class="author-text">proposé par <strong><?php echo htmlspecialchars($prenom_corrige); ?></strong></span>
+                        <img src="photos/gravatars/<?php echo $gravatar; ?>" alt="Avatar" class="avatar-img">
+                        <span class="author-text">Proposé par <strong><?php echo htmlspecialchars($prenom); ?></strong></span>
                     </div>
                 </article>
             <?php endwhile; ?>
