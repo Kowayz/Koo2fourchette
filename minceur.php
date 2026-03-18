@@ -155,78 +155,27 @@ require_once 'config.php';
         <h2 class="section-title">RECETTES LÉGÈRES</h2>
 
         <div class="minceur-grid">
+            <?php
+            $stmt = $pdo->query("SELECT * FROM recettes WHERE categorie = 6 ORDER BY dateCrea DESC");
+            while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)):
+                $titre = htmlspecialchars($recette['titre']);
+                $chapo = htmlspecialchars($recette['chapo']);
+                $img   = htmlspecialchars($recette['img']);
+                $diff  = htmlspecialchars($recette['difficulte']);
+                $prix  = htmlspecialchars($recette['prix']);
+            ?>
             <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
+                <img src="photos/recettes/<?php echo $img; ?>" alt="<?php echo $titre; ?>" style="width:120px;height:100%;object-fit:cover;flex-shrink:0;">
                 <div class="minceur-card-content">
-                    <h3>Bowl de Quinoa aux Légumes Grillés</h3>
-                    <p>Un repas complet, riche en protéines végétales et en fibres. Parfait pour un déjeuner rassasiant et équilibré.</p>
+                    <h3><?php echo $titre; ?></h3>
+                    <p><?php echo mb_substr($chapo, 0, 120) . '...'; ?></p>
                     <div class="minceur-meta">
-                        <span>320 kcal</span>
-                        <span>Protéines : 14g</span>
-                        <span>Facile</span>
+                        <span><?php echo $diff; ?></span>
+                        <span><?php echo $prix; ?></span>
                     </div>
                 </div>
             </div>
-            <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
-                <div class="minceur-card-content">
-                    <h3>Salade de Lentilles au Saumon</h3>
-                    <p>Riche en oméga-3 et en protéines, cette salade colorée est un allié santé pour votre silhouette.</p>
-                    <div class="minceur-meta">
-                        <span>280 kcal</span>
-                        <span>Protéines : 22g</span>
-                        <span>Facile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
-                <div class="minceur-card-content">
-                    <h3>Soupe Detox aux 7 Légumes</h3>
-                    <p>Une soupe réconfortante et légère, idéale pour drainer et regonfler votre énergie en toute saison.</p>
-                    <div class="minceur-meta">
-                        <span>120 kcal</span>
-                        <span>Fibres : 8g</span>
-                        <span>Très facile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
-                <div class="minceur-card-content">
-                    <h3>Poulet Citron Vapeur &amp; Brocolis</h3>
-                    <p>Le classique minceur revisité : du poulet tendre cuit à la vapeur avec des brocolis croquants et une sauce citronnée.</p>
-                    <div class="minceur-meta">
-                        <span>240 kcal</span>
-                        <span>Protéines : 30g</span>
-                        <span>Facile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
-                <div class="minceur-card-content">
-                    <h3>Yaourt Grec aux Fruits Rouges</h3>
-                    <p>Un dessert ou snack sain et gourmand, plein d'antioxydants pour terminer le repas sans culpabilité.</p>
-                    <div class="minceur-meta">
-                        <span>150 kcal</span>
-                        <span>Calcium : élevé</span>
-                        <span>Très facile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="minceur-card">
-                <div class="minceur-card-accent"></div>
-                <div class="minceur-card-content">
-                    <h3>Wrap de Laitue au Thon</h3>
-                    <p>Sans pain, sans gluten : des feuilles de laitue garnies de thon, avocat et légumes croquants.</p>
-                    <div class="minceur-meta">
-                        <span>190 kcal</span>
-                        <span>Protéines : 18g</span>
-                        <span>Très facile</span>
-                    </div>
-                </div>
-            </div>
+            <?php endwhile; ?>
         </div>
 
         <div class="bottom-black-block"></div>

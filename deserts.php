@@ -146,54 +146,26 @@ require_once 'config.php';
         <h2 class="section-title">NOS DESSERTS GOURMANDS</h2>
 
         <div class="desserts-grid">
+            <?php
+            $stmt = $pdo->query("SELECT * FROM recettes WHERE categorie = 5 ORDER BY dateCrea DESC");
+            while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)):
+                $titre = htmlspecialchars($recette['titre']);
+                $chapo = htmlspecialchars($recette['chapo']);
+                $img   = htmlspecialchars($recette['img']);
+                $diff  = htmlspecialchars($recette['difficulte']);
+                $temps = htmlspecialchars($recette['tempsCuisson']);
+            ?>
             <div class="dessert-card">
-                <div class="dessert-card-img">🍰</div>
+                <div class="dessert-card-img">
+                    <img src="photos/recettes/<?php echo $img; ?>" alt="<?php echo $titre; ?>" style="width:100%;height:100%;object-fit:cover;">
+                </div>
                 <div class="dessert-card-body">
-                    <h3>Fondant au Chocolat</h3>
-                    <p>Un cœur coulant irrésistible pour les amateurs de chocolat. Recette facile et rapide à préparer.</p>
-                    <span class="dessert-tag">Facile · 25 min</span>
+                    <h3><?php echo $titre; ?></h3>
+                    <p><?php echo mb_substr($chapo, 0, 100) . '...'; ?></p>
+                    <span class="dessert-tag"><?php echo $diff; ?> · <?php echo $temps; ?></span>
                 </div>
             </div>
-            <div class="dessert-card">
-                <div class="dessert-card-img">🍮</div>
-                <div class="dessert-card-body">
-                    <h3>Crème Brûlée</h3>
-                    <p>La recette traditionnelle française avec sa carapace de caramel craquante et sa crème onctueuse.</p>
-                    <span class="dessert-tag">Moyen · 1h</span>
-                </div>
-            </div>
-            <div class="dessert-card">
-                <div class="dessert-card-img">🍓</div>
-                <div class="dessert-card-body">
-                    <h3>Charlotte aux Fraises</h3>
-                    <p>Un dessert frais et léger à base de biscuits à la cuillère et de mousse aux fraises.</p>
-                    <span class="dessert-tag">Moyen · 2h</span>
-                </div>
-            </div>
-            <div class="dessert-card">
-                <div class="dessert-card-img">🥧</div>
-                <div class="dessert-card-body">
-                    <h3>Tarte Tatin</h3>
-                    <p>La célèbre tarte renversée aux pommes caramélisées, servie tiède avec de la crème fraîche.</p>
-                    <span class="dessert-tag">Facile · 50 min</span>
-                </div>
-            </div>
-            <div class="dessert-card">
-                <div class="dessert-card-img">🍦</div>
-                <div class="dessert-card-body">
-                    <h3>Île Flottante</h3>
-                    <p>Des blancs en neige moelleux flottant sur une crème anglaise onctueuse au caramel.</p>
-                    <span class="dessert-tag">Difficile · 1h30</span>
-                </div>
-            </div>
-            <div class="dessert-card">
-                <div class="dessert-card-img">🫐</div>
-                <div class="dessert-card-body">
-                    <h3>Muffins aux Myrtilles</h3>
-                    <p>Moelleux à souhait, ces muffins débordent de myrtilles fraîches pour un goûter parfait.</p>
-                    <span class="dessert-tag">Facile · 35 min</span>
-                </div>
-            </div>
+            <?php endwhile; ?>
         </div>
 
         <div class="bottom-black-block"></div>
