@@ -61,7 +61,7 @@ require_once 'config.php';
         <ul>
             <li><a href="index.php" class="active">RECETTES</a></li>
             <li><a href="menus.php">MENUS</a></li>
-            <li><a href="deserts.php">DESERTS</a></li>
+            <li><a href="desserts.php">DESERTS</a></li>
             <li><a href="minceur.php">MINCEUR</a></li>
             <li><a href="atelier.php">ATELIER</a></li>
             <li><a href="contact.php">CONTACT</a></li>

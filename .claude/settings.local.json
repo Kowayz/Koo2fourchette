@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 add_recipes.py)",
+      "Bash(python3 -c \":*)",
+      "Bash(rm add_recipes.py)"
+    ]
+  }
+}
