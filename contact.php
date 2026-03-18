@@ -1,6 +1,13 @@
 <?php
 session_start();
 require_once 'config.php';
+$pageTitle  = 'Contact';
+$activePage = 'contact';
+require_once 'includes/header.php';
+?>
+<?php
+session_start();
+require_once 'config.php';
 
 $success = false;
 $error = '';
@@ -21,204 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Kooz2Fourchette</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        .page-hero {
-            background-color: var(--couleur-magenta-clair);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-        }
-        .page-hero h1 {
-            font-size: 42px;
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-        .page-hero p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin: 40px 0;
-        }
-        .contact-form label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .contact-form input,
-        .contact-form select,
-        .contact-form textarea {
-            width: 100%;
-            border: 2px solid #ddd;
-            padding: 10px 14px;
-            font-size: 14px;
-            font-family: 'Roboto', Arial, sans-serif;
-            color: #333;
-            outline: none;
-            margin-bottom: 18px;
-            transition: border-color 0.2s;
-        }
-        .contact-form input:focus,
-        .contact-form select:focus,
-        .contact-form textarea:focus {
-            border-color: var(--couleur-magenta-clair);
-        }
-        .contact-form textarea {
-            height: 160px;
-            resize: vertical;
-        }
-        .btn-envoyer {
-            background-color: var(--couleur-magenta-fonce);
-            color: white;
-            border: none;
-            padding: 12px 40px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Roboto', Arial, sans-serif;
-            width: 100%;
-        }
-        .btn-envoyer:hover {
-            background-color: var(--couleur-magenta-clair);
-        }
-        .alert-success {
-            background-color: var(--couleur-vert-anis);
-            color: #333;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        .alert-error {
-            background-color: #fce4ec;
-            color: #c62828;
-            border-left: 4px solid var(--couleur-magenta-clair);
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .contact-info h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--couleur-magenta-fonce);
-            margin-bottom: 20px;
-        }
-        .info-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            align-items: flex-start;
-        }
-        .info-icon {
-            width: 44px;
-            height: 44px;
-            background-color: var(--couleur-magenta-clair);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        .info-text strong {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 3px;
-        }
-        .info-text p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-        }
-        .faq-section {
-            margin: 40px 0;
-        }
-        .faq-item {
-            border-bottom: 1px solid #eee;
-            padding: 18px 0;
-        }
-        .faq-item h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--couleur-magenta-fonce);
-            margin-bottom: 8px;
-        }
-        .faq-item p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
-
-    <header class="header-container">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="images/koo_2_fourchette.png" alt="Logo Kooz2Fourchette" class="site-logo">
-                <p class="tagline">miam miam, gloup gloup, laps laps</p>
-            </div>
-            <div class="tools-section">
-                <div class="social-icons">
-                    <a href="#" class="icon-fb"><img src="images/facebook.png" alt="Facebook"></a>
-                    <a href="#" class="icon-tw"><img src="images/twitter.png" alt="Twitter"></a>
-                    <a href="#" class="icon-gplus"><img src="images/google.png" alt="Google"></a>
-                    <a href="#" class="icon-yt"><img src="images/youtube.png" alt="Youtube"></a>
-                </div>
-                <div class="search-auth-row">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Rechercher une recette">
-                        <button class="btn-ok">OK</button>
-                    </div>
-                    <div class="auth-buttons">
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <span class="welcome-user">Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</span>
-                            <a href="deconnexion.php" class="btn-logout">
-                                <button class="creer-compte">Déconnexion</button>
-                            </a>
-                        <?php else: ?>
-                            <a href="connexion.php"><button class="se-connecter">Se connecter</button></a>
-                            <a href="inscription.php"><button class="creer-compte">Créer un compte</button></a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="deposit-row">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="ajouter_recette.php" class="btn-deposer">Déposer une recette</a>
-                    <?php else: ?>
-                        <a href="connexion.php" class="btn-deposer" onclick="return confirm('Vous devez être connecté pour déposer une recette.');">Déposer une recette</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.php">RECETTES</a></li>
-            <li><a href="menus.php">MENUS</a></li>
-            <li><a href="deserts.php">DESERTS</a></li>
-            <li><a href="minceur.php">MINCEUR</a></li>
-            <li><a href="atelier.php">ATELIER</a></li>
-            <li><a href="contact.php" class="active">CONTACT</a></li>
-        </ul>
-    </nav>
-
-    <div class="page-hero">
+<div class="page-hero">
         <h1>CONTACT</h1>
         <p>Une question, une suggestion ? Nous sommes à votre écoute</p>
     </div>
@@ -306,8 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </div>
 
-        <div class="bottom-black-block"></div>
+
     </main>
 
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>

@@ -1,74 +1,11 @@
 <?php
-session_start(); 
-require_once 'config.php'; 
+session_start();
+require_once 'config.php';
+$pageTitle  = 'Recettes du jour';
+$activePage = 'recettes';
+require_once 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kooz2Fourchette - Maquette Finale</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <header class="header-container">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="images/koo_2_fourchette.png" alt="Logo Kooz2Fourchette" class="site-logo">
-                <p class="tagline">miam miam, gloup gloup, laps laps</p>
-            </div>
-
-            <div class="tools-section">
-                <div class="social-icons">
-                    <a href="#" class="icon-fb"><img src="images/facebook.png" alt="Facebook"></a>
-                    <a href="#" class="icon-tw"><img src="images/twitter.png" alt="Twitter"></a>
-                    <a href="#" class="icon-gplus"><img src="images/google.png" alt="Google"></a>
-                    <a href="#" class="icon-yt"><img src="images/youtube.png" alt="Youtube"></a>
-                </div>
-
-                <div class="search-auth-row">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Rechercher une recette">
-                        <button class="btn-ok">OK</button>
-                    </div>
-                    <div class="auth-buttons">
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <span class="welcome-user">Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</span>
-                            <a href="deconnexion.php" class="btn-logout">
-                                <button class="creer-compte">Déconnexion</button>
-                            </a>
-                        <?php else: ?>
-                            <a href="connexion.php"><button class="se-connecter">Se connecter</button></a>
-                            <a href="inscription.php"><button class="creer-compte">Créer un compte</button></a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="deposit-row">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="ajouter_recette.php" class="btn-deposer">Déposer une recette</a>
-                    <?php else: ?>
-                        <a href="connexion.php" class="btn-deposer" onclick="return confirm('Vous devez être connecté pour déposer une recette.');">Déposer une recette</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.php" class="active">RECETTES</a></li>
-            <li><a href="menus.php">MENUS</a></li>
-            <li><a href="desserts.php">DESERTS</a></li>
-            <li><a href="minceur.php">MINCEUR</a></li>
-            <li><a href="atelier.php">ATELIER</a></li>
-            <li><a href="contact.php">CONTACT</a></li>
-        </ul>
-    </nav>
-
-    <main class="content-wrapper">
+<main class="content-wrapper">
 
         <section class="top-section">
             <div class="featured-image-container">
@@ -134,9 +71,6 @@ require_once 'config.php';
             <?php endwhile; ?>
         </section>
         
-        <div class="bottom-black-block"></div>
-
     </main>
 
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>
