@@ -4,10 +4,10 @@
                 <img src="images/koo_2_fourchette.png" alt="Kooz2Fourchette">
                 <p>Le site communautaire des passionné·es de cuisine. Partagez vos recettes, découvrez des menus équilibrés et régalez-vous !</p>
                 <div class="footer-social">
-                    <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="images/twitter.png" alt="Twitter"></a>
-                    <a href="#"><img src="images/google.png" alt="Google+"></a>
-                    <a href="#"><img src="images/youtube.png" alt="Youtube"></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Google+"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-col">
