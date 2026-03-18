@@ -1,14 +1,9 @@
     <footer class="site-footer">
+        <div class="footer-top-bar"></div>
         <div class="footer-grid">
             <div class="footer-brand">
                 <img src="images/koo_2_fourchette.png" alt="Kooz2Fourchette">
                 <p>Le site communautaire des passionné·es de cuisine. Partagez vos recettes, découvrez des menus équilibrés et régalez-vous !</p>
-                <div class="footer-social" style="margin-top:16px;">
-                    <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="images/twitter.png" alt="Twitter"></a>
-                    <a href="#"><img src="images/google.png" alt="Google+"></a>
-                    <a href="#"><img src="images/youtube.png" alt="Youtube"></a>
-                </div>
             </div>
             <div class="footer-col">
                 <h4>Navigation</h4>
@@ -30,17 +25,15 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contact</h4>
+                <h4>Nous contacter</h4>
                 <ul>
                     <li><a href="contact.php">Formulaire de contact</a></li>
-                    <li><a href="#">Mentions légales</a></li>
-                    <li><a href="#">Politique de confidentialité</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <span>&copy; 2023 Kooz2Fourchette</span>
-            <span>Fait avec <span style="color:var(--couleur-magenta-clair);">&#9829;</span> par la communauté</span>
+            <span>Fait avec &#9829; par la communauté</span>
         </div>
     </footer>
 
