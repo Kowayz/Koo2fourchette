@@ -6,7 +6,6 @@
     <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - Kooz2Fourchette' : 'Kooz2Fourchette'; ?></title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <?php if (isset($extraStyles)) echo $extraStyles; ?>
 </head>
 <body>
