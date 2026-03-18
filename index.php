@@ -59,12 +59,12 @@ require_once 'config.php';
 
     <nav class="main-nav">
         <ul>
-            <li><a href="#" class="active">RECETTES</a></li>
-            <li><a href="#">MENUS</a></li>
-            <li><a href="#">DESERTS</a></li>
-            <li><a href="#">MINCEUR</a></li>
-            <li><a href="#">ATELIER</a></li>
-            <li><a href="#">CONTACT</a></li>
+            <li><a href="index.php" class="active">RECETTES</a></li>
+            <li><a href="menus.php">MENUS</a></li>
+            <li><a href="deserts.php">DESERTS</a></li>
+            <li><a href="minceur.php">MINCEUR</a></li>
+            <li><a href="atelier.php">ATELIER</a></li>
+            <li><a href="contact.php">CONTACT</a></li>
         </ul>
     </nav>
 
