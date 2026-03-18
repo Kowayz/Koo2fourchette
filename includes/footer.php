@@ -1,5 +1,4 @@
     <footer class="site-footer">
-        <div class="footer-top-bar"></div>
         <div class="footer-grid">
             <div class="footer-brand">
                 <img src="images/koo_2_fourchette.png" alt="Kooz2Fourchette">
