@@ -5,7 +5,7 @@ $pageTitle  = 'Minceur';
 $activePage = 'minceur';
 require_once 'includes/header.php';
 ?>
-<div class="page-hero">
+<div class="page-hero hero-vert">
         <h1>MINCEUR</h1>
         <p>Manger sainement sans sacrifier le plaisir</p>
     </div>

@@ -1,21 +1,14 @@
 <?php
 session_start();
 require_once 'config.php';
-$pageTitle  = 'Contact';
-$activePage = 'contact';
-require_once 'includes/header.php';
-?>
-<?php
-session_start();
-require_once 'config.php';
 
 $success = false;
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = trim($_POST['nom'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $sujet = trim($_POST['sujet'] ?? '');
+    $nom     = trim($_POST['nom']     ?? '');
+    $email   = trim($_POST['email']   ?? '');
+    $sujet   = trim($_POST['sujet']   ?? '');
     $message = trim($_POST['message'] ?? '');
 
     if (empty($nom) || empty($email) || empty($sujet) || empty($message)) {
@@ -23,12 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Adresse email invalide.';
     } else {
-        // Ici vous pourrez ajouter l'envoi de mail avec mail() ou PHPMailer
         $success = true;
     }
 }
+
+$pageTitle  = 'Contact';
+$activePage = 'contact';
+require_once 'includes/header.php';
 ?>
-<div class="page-hero">
+<div class="page-hero hero-magenta">
         <h1>CONTACT</h1>
         <p>Une question, une suggestion ? Nous sommes à votre écoute</p>
     </div>

@@ -5,7 +5,7 @@ $pageTitle  = 'Desserts';
 $activePage = 'deserts';
 require_once 'includes/header.php';
 ?>
-<div class="page-hero">
+<div class="page-hero hero-bleu">
         <h1>DESSERTS</h1>
         <p>Terminez vos repas en beauté avec nos recettes gourmandes</p>
     </div>

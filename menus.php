@@ -5,7 +5,7 @@ $pageTitle  = 'Menus';
 $activePage = 'menus';
 require_once 'includes/header.php';
 ?>
-<div class="page-hero">
+<div class="page-hero hero-magenta">
         <h1>NOS MENUS</h1>
         <p>Des menus équilibrés et savoureux pour tous les jours de la semaine</p>
     </div>

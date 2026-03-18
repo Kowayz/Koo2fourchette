@@ -5,7 +5,7 @@ $pageTitle  = 'Atelier';
 $activePage = 'atelier';
 require_once 'includes/header.php';
 ?>
-<div class="page-hero">
+<div class="page-hero hero-magenta-fonce">
         <h1>ATELIERS CUISINE</h1>
         <p>Apprenez, pratiquez et partagez votre passion de la cuisine</p>
     </div>
