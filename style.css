@@ -700,8 +700,8 @@ body {
 
 .footer-social a {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     opacity: 0.85;
     transition: opacity 0.2s;
 }
