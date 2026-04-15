@@ -11,7 +11,7 @@ if (empty($query)) {
 }
 
 $results    = searchRecettes($pdo, $query);
-$pageTitle  = 'Recherche : ' . $query;
+$pageTitle  = 'Recherche : ' . htmlspecialchars($query);
 $activePage = 'recettes';
 
 $couleur_map = [

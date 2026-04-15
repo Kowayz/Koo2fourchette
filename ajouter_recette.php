@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config.php';
+require_once 'config.php';
 require_once 'includes/functions.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -36,10 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
         || !in_array($couleur, $allowed_couleur)) {
         $error = 'Veuillez remplir tous les champs correctement.';
     } else {
+        $preparation = nl2br(htmlspecialchars($preparation));
+        $ingredient  = nl2br(htmlspecialchars($ingredient));
+
         $imgType = $_FILES['image']['type'];
         $ext     = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
         if (!in_array($imgType, ['image/jpeg', 'image/png']) || !in_array($ext, ['jpg', 'jpeg', 'png'])) {
             $error = 'Seuls les formats JPG et PNG sont autorisés.';
+        } elseif ($_FILES['image']['size'] > 5 * 1024 * 1024) {
+            $error = 'L\'image ne doit pas dépasser 5 Mo.';
         } else {
             $imgName    = uniqid('recette_') . '.' . $ext;
             $targetDir  = 'photos/recettes/';
@@ -58,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
                 ])) {
                     $success = true;
                 } else {
+                    unlink($targetFile);
                     $error = 'Erreur lors de l\'enregistrement en base de données.';
                 }
             } else {

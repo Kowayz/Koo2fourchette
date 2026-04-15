@@ -4,7 +4,6 @@ require_once 'config.php';
 require_once 'includes/functions.php';
 $pageTitle  = 'Menus';
 $activePage = 'menus';
-require_once 'includes/header.php';
 
 $categories = getAllCategories($pdo);
 
@@ -16,6 +15,8 @@ $header_colors = [
     'dessert' => 'dessert',
     'minceur' => 'plat',
 ];
+
+require_once 'includes/header.php';
 ?>
 
 <div class="page-hero hero-magenta">
