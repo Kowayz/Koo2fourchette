@@ -37,12 +37,13 @@ require_once 'includes/header.php';
             $recettes = getRecettesByCategorie($pdo, $cat['idCategorie']);
             if (empty($recettes)) continue;
             $recette      = $recettes[0];
-            $nomCat       = htmlspecialchars($cat['nom']);
-            $colorClass   = $header_colors[$cat['nom']] ?? 'plat';
-            $titre        = htmlspecialchars($recette['titre']);
+            $nomCatRaw    = utf8_decode($cat['nom']);
+            $nomCat       = htmlspecialchars($nomCatRaw);
+            $colorClass   = $header_colors[$nomCatRaw] ?? 'plat';
+            $titre        = htmlspecialchars(utf8_decode($recette['titre']));
             $img          = htmlspecialchars($recette['img']);
-            $diff         = htmlspecialchars($recette['difficulte']);
-            $temps        = htmlspecialchars($recette['tempsCuisson']);
+            $diff         = htmlspecialchars(utf8_decode($recette['difficulte']));
+            $temps        = htmlspecialchars(utf8_decode($recette['tempsCuisson']));
         ?>
         <div class="menu-card">
             <div class="menu-card-header <?php echo $colorClass; ?>">

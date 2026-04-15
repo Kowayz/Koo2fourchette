@@ -23,12 +23,12 @@ require_once 'includes/header.php';
             <?php
             $recettes = getRecettesByCategorie($pdo, 6);
             foreach ($recettes as $recette):
-                $titre    = htmlspecialchars($recette['titre']);
-                $chapo    = htmlspecialchars($recette['chapo']);
+                $titre    = htmlspecialchars(utf8_decode($recette['titre']));
+                $chapo    = htmlspecialchars(utf8_decode($recette['chapo']));
                 $img      = htmlspecialchars($recette['img']);
-                $diff     = htmlspecialchars($recette['difficulte']);
-                $prix     = htmlspecialchars($recette['prix']);
-                $prenom   = htmlspecialchars($recette['prenom'] ?? '—');
+                $diff     = htmlspecialchars(utf8_decode($recette['difficulte']));
+                $prix     = htmlspecialchars(utf8_decode($recette['prix']));
+                $prenom   = htmlspecialchars(utf8_decode($recette['prenom'] ?? '—'));
                 $gravatar = htmlspecialchars($recette['gravatar'] ?? 'PPdéfaut.jpg');
             ?>
             <a href="recette.php?id=<?php echo (int)$recette['idRecette']; ?>" class="minceur-card-link">

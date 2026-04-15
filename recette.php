@@ -25,6 +25,17 @@ if (!$recette) {
     exit();
 }
 
+// Correction double-encodage Latin-1/UTF-8 (données stockées en UTF-8 dans colonnes latin1)
+$recette['titre']            = utf8_decode($recette['titre']);
+$recette['chapo']            = utf8_decode($recette['chapo']);
+$recette['ingredient']       = utf8_decode($recette['ingredient']);
+$recette['preparation']      = utf8_decode($recette['preparation']);
+$recette['tempsPreparation'] = utf8_decode($recette['tempsPreparation']);
+$recette['tempsCuisson']     = utf8_decode($recette['tempsCuisson']);
+$recette['difficulte']       = utf8_decode($recette['difficulte']);
+$recette['prix']             = utf8_decode($recette['prix']);
+$recette['prenom']           = utf8_decode($recette['prenom'] ?? '');
+
 $pageTitle  = $recette['titre'];
 $activePage = 'recettes';
 
