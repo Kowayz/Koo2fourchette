@@ -877,3 +877,19 @@ body {
 .btn-retour:hover {
     background-color: var(--couleur-magenta-fonce);
 }
+
+/* ===== RECHERCHE ===== */
+.recipe-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex: 1;
+}
+
+.recipe-card-link .recipe-card {
+    width: 100%;
+}
+
+.recherche-grid {
+    flex-wrap: wrap;
+}
