@@ -906,3 +906,17 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+/* ===== MINCEUR LINKS ===== */
+.minceur-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.minceur-auteur {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}

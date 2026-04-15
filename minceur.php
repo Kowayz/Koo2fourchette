@@ -3,6 +3,7 @@ session_start();
 require_once 'config.php';
 $pageTitle  = 'Minceur';
 $activePage = 'minceur';
+require_once 'includes/functions.php';
 require_once 'includes/header.php';
 ?>
 <div class="page-hero hero-vert">
@@ -20,16 +21,19 @@ require_once 'includes/header.php';
 
         <div class="minceur-grid">
             <?php
-            $stmt = $pdo->query("SELECT * FROM recettes WHERE categorie = 6 ORDER BY dateCrea DESC");
-            while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)):
-                $titre = htmlspecialchars($recette['titre']);
-                $chapo = htmlspecialchars($recette['chapo']);
-                $img   = htmlspecialchars($recette['img']);
-                $diff  = htmlspecialchars($recette['difficulte']);
-                $prix  = htmlspecialchars($recette['prix']);
+            $recettes = getRecettesByCategorie($pdo, 6);
+            foreach ($recettes as $recette):
+                $titre    = htmlspecialchars($recette['titre']);
+                $chapo    = htmlspecialchars($recette['chapo']);
+                $img      = htmlspecialchars($recette['img']);
+                $diff     = htmlspecialchars($recette['difficulte']);
+                $prix     = htmlspecialchars($recette['prix']);
+                $prenom   = htmlspecialchars($recette['prenom'] ?? '—');
+                $gravatar = htmlspecialchars($recette['gravatar'] ?? 'PPdéfaut.jpg');
             ?>
+            <a href="recette.php?id=<?php echo (int)$recette['idRecette']; ?>" class="minceur-card-link">
             <div class="minceur-card">
-                <img src="photos/recettes/<?php echo $img; ?>" alt="<?php echo $titre; ?>" style="width:120px;height:100%;object-fit:cover;flex-shrink:0;">
+                <img src="photos/recettes/<?php echo $img; ?>" alt="<?php echo $titre; ?>" style="width:120px;height:100%;min-height:140px;object-fit:cover;flex-shrink:0;">
                 <div class="minceur-card-content">
                     <h3><?php echo $titre; ?></h3>
                     <p><?php echo mb_substr($chapo, 0, 120) . '...'; ?></p>
@@ -37,9 +41,14 @@ require_once 'includes/header.php';
                         <span><?php echo $diff; ?></span>
                         <span><?php echo $prix; ?></span>
                     </div>
+                    <div class="minceur-auteur">
+                        <img src="photos/gravatars/<?php echo $gravatar; ?>" alt="Avatar" class="avatar-img" style="width:30px;height:30px;">
+                        <span class="author-text">Par <strong><?php echo $prenom; ?></strong></span>
+                    </div>
                 </div>
             </div>
-            <?php endwhile; ?>
+            </a>
+            <?php endforeach; ?>
         </div>
 
 
