@@ -25,14 +25,15 @@ function getRecettesByCategorie($pdo, $categorieId) {
 }
 
 function searchRecettes($pdo, $query) {
+    $safe = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $query);
     $stmt = $pdo->prepare(
         "SELECT r.*, m.prenom, m.gravatar
          FROM recettes r
          LEFT JOIN membres m ON r.membre = m.idMembre
-         WHERE r.titre LIKE ?
+         WHERE r.titre LIKE ? ESCAPE '\\\\'
          ORDER BY r.dateCrea DESC"
     );
-    $stmt->execute(['%' . $query . '%']);
+    $stmt->execute(['%' . $safe . '%']);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
