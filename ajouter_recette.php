@@ -37,10 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
         $error = 'Veuillez remplir tous les champs correctement.';
     } else {
         $imgType = $_FILES['image']['type'];
-        if (!in_array($imgType, ['image/jpeg', 'image/png'])) {
+        $ext     = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        if (!in_array($imgType, ['image/jpeg', 'image/png']) || !in_array($ext, ['jpg', 'jpeg', 'png'])) {
             $error = 'Seuls les formats JPG et PNG sont autorisés.';
         } else {
-            $imgName    = basename($_FILES['image']['name']);
+            $imgName    = uniqid('recette_') . '.' . $ext;
             $targetDir  = 'photos/recettes/';
             $targetFile = $targetDir . $imgName;
 
