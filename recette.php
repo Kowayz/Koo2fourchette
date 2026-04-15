@@ -71,7 +71,12 @@ require_once 'includes/header.php';
         <div class="recette-body">
             <div class="recette-ingredients">
                 <h2 class="section-title">INGRÉDIENTS</h2>
-                <?php echo $recette['ingredient']; ?>
+                <?php
+                // SECURITY NOTE: ingredient and preparation are admin-authored HTML stored in the DB.
+                // Never grant regular members write access to these fields without adding
+                // sanitisation (e.g. HTMLPurifier) here.
+                echo $recette['ingredient'];
+                ?>
             </div>
             <div class="recette-preparation">
                 <h2 class="section-title">PRÉPARATION</h2>
@@ -83,7 +88,12 @@ require_once 'includes/header.php';
             <img src="photos/gravatars/<?php echo htmlspecialchars($recette['gravatar'] ?? 'PPdéfaut.jpg'); ?>"
                  alt="Avatar" class="avatar-img">
             <span>Proposé par <strong><?php echo htmlspecialchars($recette['prenom'] ?? 'un membre'); ?></strong></span>
-            <span class="recette-date"><?php echo date('d/m/Y', strtotime($recette['dateCrea'])); ?></span>
+            <span class="recette-date"><?php
+                $dateStr = !empty($recette['dateCrea'])
+                    ? date('d/m/Y', strtotime($recette['dateCrea']))
+                    : 'Date inconnue';
+                echo htmlspecialchars($dateStr);
+            ?></span>
         </div>
 
         <a href="index.php" class="btn-retour">← Retour aux recettes</a>
