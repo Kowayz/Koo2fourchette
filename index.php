@@ -54,6 +54,7 @@ require_once 'includes/header.php';
                 
                 $colors = $couleur_map[$couleur] ?? $couleur_map['fushia'];
             ?>
+                <a href="recette.php?id=<?php echo (int)$recette['idRecette']; ?>" class="recipe-card-link">
                 <article class="recipe-card">
                     <div class="recipe-image-container">
                         <img src="photos/recettes/<?php echo $img; ?>" 
@@ -68,6 +69,7 @@ require_once 'includes/header.php';
                         <span class="author-text">Proposé par <strong><?php echo htmlspecialchars($prenom); ?></strong></span>
                     </div>
                 </article>
+                </a>
             <?php endwhile; ?>
         </section>
         
