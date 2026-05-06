@@ -231,7 +231,8 @@ body {
     font-size: 16px;
 }
 
-.block-magenta { background-color: var(--couleur-magenta-clair); color: #fff; } 
+.block-magenta { background-color: var(--couleur-magenta-clair); color: #fff; }
+.block-magenta:hover { background-color: var(--couleur-magenta-fonce); transition: background-color .2s; }
 .block-blue { background-color: var(--couleur-bleu-roi); color: #fff; }
 
 .section-title {
