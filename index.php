@@ -7,18 +7,31 @@ require_once 'includes/header.php';
 ?>
 <main class="content-wrapper">
 
+        <?php
+        $surprise = $pdo->query("SELECT idRecette, titre FROM recettes ORDER BY RAND() LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+        $nbRecettes = $pdo->query("SELECT COUNT(*) FROM recettes")->fetchColumn();
+        $nbMembres  = $pdo->query("SELECT COUNT(*) FROM membres")->fetchColumn();
+        ?>
         <section class="top-section">
             <div class="featured-image-container">
                 <img src="photos/recettes/creme-petits-poids.jpg" alt="Recette principale" class="featured-image">
             </div>
             <aside class="sidebar">
-                <div class="ad-block block-magenta">
-                    <p>block1</p>
-                    <p>140/300</p>
-                </div>
-                <div class="ad-block block-blue">
-                    <p>block1</p>
-                    <p>140/300</p>
+                <a href="recette.php?id=<?php echo (int)$surprise['idRecette']; ?>" class="ad-block block-magenta" style="text-decoration:none; text-align:center; padding:16px;">
+                    <span style="font-size:36px; display:block; margin-bottom:10px;">🎲</span>
+                    <strong style="font-size:15px; display:block; margin-bottom:8px;">Recette surprise</strong>
+                    <span style="font-size:12px; opacity:.85; line-height:1.4;"><?php echo htmlspecialchars(utf8_decode($surprise['titre'])); ?></span>
+                </a>
+                <div class="ad-block block-blue" style="text-align:center; padding:16px; gap:12px;">
+                    <div>
+                        <span style="font-size:40px; font-weight:800; display:block; line-height:1;"><?php echo $nbRecettes; ?></span>
+                        <span style="font-size:12px; opacity:.85;">recettes</span>
+                    </div>
+                    <div style="width:40px; height:2px; background:rgba(255,255,255,.4);"></div>
+                    <div>
+                        <span style="font-size:40px; font-weight:800; display:block; line-height:1;"><?php echo $nbMembres; ?></span>
+                        <span style="font-size:12px; opacity:.85;">membres</span>
+                    </div>
                 </div>
             </aside>
         </section>
