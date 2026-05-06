@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['idMembre'];
         $_SESSION['pseudo'] = $user['login'];
         $_SESSION['prenom'] = $user['prenom'];
+        $_SESSION['gravatar'] = $user['gravatar'];
         
         header("Location: index.php");
         exit();

@@ -85,9 +85,8 @@ body {
 .search-auth-row {
     display: flex;
     align-items: center;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     width: 100%;
-    height: 32px;
 }
 
 .search-bar {
@@ -119,10 +118,15 @@ body {
     margin-left: -2px;
 }
 
+.auth-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 .auth-buttons {
     display: flex;
     gap: 10px;
-    height: 100%;
+    height: 32px;
 }
 .auth-buttons button {
     border: none;
@@ -139,17 +143,28 @@ body {
 .se-connecter { background-color: var(--couleur-vert-anis); }
 .creer-compte { background-color: var(--couleur-bleu-roi); }
 
-.deposit-row {
-    margin-top: 5px;
-    width: 100%;
+.user-identity {
     display: flex;
-    justify-content: flex-end; 
+    align-items: center;
+    gap: 8px;
 }
+.header-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+.welcome-user {
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
 .btn-deposer {
     background-color: var(--couleur-magenta-fonce);
     color: white;
     text-decoration: none;
-    padding: 0 57px;
     height: 32px;
     line-height: 32px;
     font-weight: bold;
@@ -157,6 +172,7 @@ body {
     font-family: Arial, sans-serif;
     display: block;
     border-radius: 0;
+    text-align: center;
 }
 
 .main-nav {
