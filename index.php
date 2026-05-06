@@ -20,7 +20,7 @@ require_once 'includes/header.php';
                 <a href="recette.php?id=<?php echo (int)$surprise['idRecette']; ?>" class="ad-block block-magenta" style="text-decoration:none; text-align:center; padding:16px;">
                     <span style="font-size:36px; display:block; margin-bottom:10px;">🎲</span>
                     <strong style="font-size:15px; display:block; margin-bottom:8px;">Recette surprise</strong>
-                    <span style="font-size:12px; opacity:.85; line-height:1.4;"><?php echo htmlspecialchars(utf8_decode($surprise['titre'])); ?></span>
+                    <span style="font-size:12px; opacity:.85; line-height:1.4;"><?php echo htmlspecialchars($surprise['titre']); ?></span>
                 </a>
                 <div class="ad-block block-blue" style="text-align:center; padding:16px; gap:12px;">
                     <div>
@@ -51,10 +51,9 @@ require_once 'includes/header.php';
             while ($recette = $stmt->fetch(PDO::FETCH_ASSOC)): 
                 $couleur = htmlspecialchars($recette['couleur'] ?? 'fushia');
                 
-                // Correction des accents
-                $titre = utf8_decode($recette['titre']);
-                $chapo = utf8_decode($recette['chapo']);
-                $prenom = utf8_decode($recette['prenom']);
+                $titre = $recette['titre'];
+                $chapo = $recette['chapo'];
+                $prenom = $recette['prenom'];
                 $img = htmlspecialchars($recette['img']);
                 $gravatar = htmlspecialchars($recette['gravatar']);
                 

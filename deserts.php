@@ -23,12 +23,12 @@ require_once 'includes/header.php';
             <?php
             $recettes = getRecettesByCategorie($pdo, 5);
             foreach ($recettes as $recette):
-                $titre    = htmlspecialchars(utf8_decode($recette['titre']));
-                $chapo    = htmlspecialchars(utf8_decode($recette['chapo']));
+                $titre    = htmlspecialchars($recette['titre']);
+                $chapo    = htmlspecialchars($recette['chapo']);
                 $img      = htmlspecialchars($recette['img']);
-                $diff     = htmlspecialchars(utf8_decode($recette['difficulte']));
-                $temps    = htmlspecialchars(utf8_decode($recette['tempsCuisson']));
-                $prenom   = htmlspecialchars(utf8_decode($recette['prenom'] ?? '—'));
+                $diff     = htmlspecialchars($recette['difficulte']);
+                $temps    = htmlspecialchars($recette['tempsCuisson']);
+                $prenom   = htmlspecialchars($recette['prenom'] ?? '—');
                 $gravatar = htmlspecialchars($recette['gravatar'] ?? 'PPdéfaut.jpg');
             ?>
             <a href="recette.php?id=<?php echo (int)$recette['idRecette']; ?>" class="recipe-card-link dessert-card-link">

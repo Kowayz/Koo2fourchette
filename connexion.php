@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Encodage du prénom pour l'affichage dans la session
         $_SESSION['user_id'] = $user['idMembre'];
         $_SESSION['pseudo'] = $user['login'];
-        $_SESSION['prenom'] = utf8_decode($user['prenom']); 
+        $_SESSION['prenom'] = $user['prenom'];
         
         header("Location: index.php");
         exit();
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2 class="section-title" style="text-align:center;">Connexion</h2>
         
         <?php if($message): ?>
-            <p style="color:red; text-align:center; font-weight:bold;"><?php echo utf8_decode($message); ?></p>
+            <p style="color:red; text-align:center; font-weight:bold;"><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
 
         <form method="POST">

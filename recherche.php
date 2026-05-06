@@ -44,19 +44,19 @@ require_once 'includes/header.php';
                 <article class="recipe-card">
                     <div class="recipe-image-container">
                         <img src="photos/recettes/<?php echo htmlspecialchars($recette['img']); ?>"
-                             alt="<?php echo htmlspecialchars(utf8_decode($recette['titre'])); ?>"
+                             alt="<?php echo htmlspecialchars($recette['titre']); ?>"
                              class="recipe-image">
                     </div>
                     <div class="recipe-text-content"
                          style="background-color: <?php echo $colors['bg']; ?>; color: <?php echo $colors['text']; ?>;">
-                        <h3><?php echo htmlspecialchars(utf8_decode($recette['titre'])); ?></h3>
-                        <p><?php echo mb_substr(htmlspecialchars(utf8_decode($recette['chapo'])), 0, 100, 'UTF-8') . '...'; ?></p>
+                        <h3><?php echo htmlspecialchars($recette['titre']); ?></h3>
+                        <p><?php echo mb_substr(htmlspecialchars($recette['chapo']), 0, 100, 'UTF-8') . '...'; ?></p>
                     </div>
                     <div class="recipe-footer">
                         <img src="photos/gravatars/<?php echo htmlspecialchars($recette['gravatar'] ?? 'PPdéfaut.jpg'); ?>"
                              alt="Avatar" class="avatar-img">
                         <span class="author-text">
-                            Proposé par <strong><?php echo htmlspecialchars(utf8_decode($recette['prenom'] ?? '—')); ?></strong>
+                            Proposé par <strong><?php echo htmlspecialchars($recette['prenom'] ?? '—'); ?></strong>
                         </span>
                     </div>
                 </article>

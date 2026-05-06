@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $login = htmlspecialchars($_POST['login']);
     $pass = sha1($_POST['password']); 
-    $prenom = utf8_encode(htmlspecialchars($_POST['prenom']));
-    $nom = utf8_encode(htmlspecialchars($_POST['nom']));
+    $prenom = htmlspecialchars($_POST['prenom']);
+    $nom = htmlspecialchars($_POST['nom']);
     $gravatar_defaut = 'PPdéfaut.jpg'; 
     
     $sql = "INSERT INTO membres (login, password, prenom, nom, statut, gravatar) VALUES (?, ?, ?, ?, 'membre', ?)";
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="auth-container">
         <h2 class="section-title" style="text-align:center;">Créer un compte</h2>
         
-        <?php echo utf8_decode($message); ?>
+        <?php echo $message; ?>
         
         <form method="POST">
             <label for="login">Login :</label>
