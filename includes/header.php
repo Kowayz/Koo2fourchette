@@ -32,12 +32,12 @@
                     <div class="auth-column">
                         <div class="auth-buttons">
                             <?php if (isset($_SESSION['user_id'])): ?>
+                                <a href="deconnexion.php"><button class="creer-compte">Déconnexion</button></a>
                                 <div class="user-identity">
                                     <img src="photos/gravatars/<?php echo htmlspecialchars($_SESSION['gravatar'] ?? 'PPdéfaut.jpg'); ?>"
                                          alt="Avatar" class="header-avatar">
                                     <span class="welcome-user"><?php echo htmlspecialchars($_SESSION['prenom']); ?></span>
                                 </div>
-                                <a href="deconnexion.php"><button class="creer-compte">Déconnexion</button></a>
                             <?php else: ?>
                                 <a href="connexion.php"><button class="se-connecter">Se connecter</button></a>
                                 <a href="inscription.php"><button class="creer-compte">Créer un compte</button></a>
