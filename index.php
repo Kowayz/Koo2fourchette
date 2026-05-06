@@ -27,11 +27,11 @@ require_once 'includes/header.php';
 
         <section class="recipes-grid">
             <?php
-            // Récupération des 3 dernières recettes avec les infos du membre auteur
-            $sql = "SELECT r.*, m.prenom, m.gravatar 
-                    FROM recettes r 
-                    LEFT JOIN membres m ON r.membre = m.idMembre 
-                    ORDER BY r.dateCrea DESC LIMIT 3";
+            // Récupération de 3 recettes aléatoires avec les infos du membre auteur
+            $sql = "SELECT r.*, m.prenom, m.gravatar
+                    FROM recettes r
+                    LEFT JOIN membres m ON r.membre = m.idMembre
+                    ORDER BY RAND() LIMIT 3";
             
             $stmt = $pdo->query($sql);
 
