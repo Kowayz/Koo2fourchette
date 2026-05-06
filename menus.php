@@ -1,87 +1,67 @@
 <?php
 session_start();
 require_once 'config.php';
+require_once 'includes/functions.php';
 $pageTitle  = 'Menus';
 $activePage = 'menus';
+
+$categories = getAllCategories($pdo);
+
+$header_colors = [
+    'viande'  => 'entree',
+    'légume'  => 'plat',
+    'poisson' => 'dessert',
+    'fruit'   => 'entree',
+    'dessert' => 'dessert',
+    'minceur' => 'plat',
+];
+
 require_once 'includes/header.php';
 ?>
+
 <div class="page-hero hero-magenta">
-        <h1>NOS MENUS</h1>
-        <p>Des menus équilibrés et savoureux pour tous les jours de la semaine</p>
+    <h1>NOS MENUS</h1>
+    <p>Découvrez nos meilleures recettes par catégorie</p>
+</div>
+
+<main class="content-wrapper">
+
+    <p class="section-intro">
+        Découvrez nos suggestions de recettes organisées par catégorie, proposées par les membres de la communauté Koo2Fourchette.
+    </p>
+
+    <h2 class="section-title">RECETTES PAR CATÉGORIE</h2>
+
+    <div class="menus-grid">
+        <?php foreach ($categories as $cat):
+            $recettes = getRecettesByCategorie($pdo, $cat['idCategorie']);
+            if (empty($recettes)) continue;
+            $recette      = $recettes[0];
+            $nomCatRaw    = utf8_decode($cat['nom']);
+            $nomCat       = htmlspecialchars($nomCatRaw);
+            $colorClass   = $header_colors[$nomCatRaw] ?? 'plat';
+            $titre        = htmlspecialchars(utf8_decode($recette['titre']));
+            $img          = htmlspecialchars($recette['img']);
+            $diff         = htmlspecialchars(utf8_decode($recette['difficulte']));
+            $temps        = htmlspecialchars(utf8_decode($recette['tempsCuisson']));
+        ?>
+        <div class="menu-card">
+            <div class="menu-card-header <?php echo $colorClass; ?>">
+                <?php echo strtoupper($nomCat); ?>
+            </div>
+            <a href="recette.php?id=<?php echo (int)$recette['idRecette']; ?>" style="text-decoration:none;color:inherit;display:block;">
+                <div class="menu-card-img">
+                    <img src="photos/recettes/<?php echo $img; ?>" alt="<?php echo $titre; ?>">
+                </div>
+                <div class="menu-card-body">
+                    <p class="menu-recette-titre"><?php echo $titre; ?></p>
+                    <p class="menu-recette-meta"><?php echo $diff; ?> · <?php echo $temps; ?></p>
+                </div>
+            </a>
+        </div>
+        <?php endforeach; ?>
     </div>
 
-    <main class="content-wrapper">
-
-        <p class="section-intro">
-            Découvrez nos suggestions de menus complets, conçus par nos membres pour vous aider à organiser vos repas de la semaine. Entrée, plat et dessert — tout est pensé pour vous !
-        </p>
-
-        <h2 class="section-title">MENU DE LA SEMAINE</h2>
-
-        <div class="menus-grid">
-            <div class="menu-card">
-                <div class="menu-card-header entree">Lundi</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Salade de tomates cerises</li>
-                        <li>Poulet rôti aux herbes</li>
-                        <li>Tarte aux pommes maison</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="menu-card">
-                <div class="menu-card-header plat">Mardi</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Soupe de légumes</li>
-                        <li>Saumon grillé, riz basmati</li>
-                        <li>Mousse au chocolat</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="menu-card">
-                <div class="menu-card-header dessert">Mercredi</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Taboulé maison</li>
-                        <li>Bœuf bourguignon</li>
-                        <li>Crème brûlée</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="menu-card">
-                <div class="menu-card-header entree">Jeudi</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Velouté de carottes</li>
-                        <li>Lasagnes maison</li>
-                        <li>Salade de fruits frais</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="menu-card">
-                <div class="menu-card-header plat">Vendredi</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Œufs mimosa</li>
-                        <li>Moules marinières &amp; frites</li>
-                        <li>Île flottante</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="menu-card">
-                <div class="menu-card-header dessert">Weekend</div>
-                <div class="menu-card-body">
-                    <ul>
-                        <li>Plateau de charcuterie</li>
-                        <li>Côte de bœuf &amp; légumes grillés</li>
-                        <li>Fondant au chocolat</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-    </main>
+</main>
 
 <?php require_once 'includes/footer.php'; ?>

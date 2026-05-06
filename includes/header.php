@@ -24,10 +24,11 @@
                     <a href="#" class="icon-yt"><img src="images/youtube.png" alt="Youtube"></a>
                 </div>
                 <div class="search-auth-row">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Rechercher une recette">
-                        <button class="btn-ok">OK</button>
-                    </div>
+                    <form class="search-bar" method="GET" action="recherche.php">
+                        <input type="text" name="q" placeholder="Rechercher une recette"
+                               value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
+                        <button type="submit" class="btn-ok">OK</button>
+                    </form>
                     <div class="auth-buttons">
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <span class="welcome-user">Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</span>
